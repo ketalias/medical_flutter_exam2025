@@ -8,19 +8,19 @@ class DoctorRepository {
       id: '1',
       fullName: 'Олена Петренко',
       specialty: 'Кардіолог',
-      imageUrl: 'https://example.com/images/doctor1.png',
+      imageUrl: 'https://www.future-doctor.de/wp-content/uploads/2024/08/shutterstock_2480850611.jpg',
     ),
     DoctorModel(
       id: '2',
       fullName: 'Максим Залізняк',
       specialty: 'Терапевт',
-      imageUrl: 'https://example.com/images/doctor2.png',
+      imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQ1iWM7UCc6j1DMSd9ATpxfkUZB2SeC44Kmw&s',
     ),
     DoctorModel(
       id: '3',
       fullName: 'Ірина Ковальчук',
       specialty: 'Педіатр',
-      imageUrl: 'https://example.com/images/doctor3.png',
+      imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQS5Ub-r2wrDnint_u-2HMQ9wQeLVPKoy9glg&s',
     ),
   ];
 

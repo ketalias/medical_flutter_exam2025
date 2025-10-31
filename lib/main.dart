@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/home_page.dart';
+import 'screens/doctors_list_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,10 @@ class MyApp extends StatelessWidget {
       ),
       // Початковий екран
       initialRoute: '/',
-      routes: {'/': (context) => HomePage()},
+      routes: {
+        '/home': (context) => HomePage(),
+        '/': (context) => DoctorsListPage(),
+      },
     );
   }
 }
