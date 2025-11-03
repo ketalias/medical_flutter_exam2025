@@ -4,6 +4,7 @@ import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/messages/presentation/pages/messages_page.dart';
 import '../../features/calendar/presentation/pages/calendar_page.dart';
 import '../../features/profile/presentation/pages/profile_page.dart';
+import '../../features/location/presentation/pages/location_page.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -26,6 +27,11 @@ class AppRouter {
       case RouteNames.profile:
         return MaterialPageRoute(
           builder: (_) => const ProfilePage(),
+          settings: settings,
+        );
+      case RouteNames.location:
+        return MaterialPageRoute(
+          builder: (_) => const LocationPage(),
           settings: settings,
         );
       default:

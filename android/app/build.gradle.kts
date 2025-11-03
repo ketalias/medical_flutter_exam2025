@@ -5,6 +5,14 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+gradledef localProperties = new Properties()
+def localPropertiesFile = rootProject.file('.env')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
 android {
     namespace = "com.example.medical_flutter_exam2025"
     compileSdk = flutter.compileSdkVersion
