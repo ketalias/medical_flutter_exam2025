@@ -14,7 +14,7 @@ class _DoctorsListPageState extends State<DoctorsListPage> {
   final _repository = DoctorRepository();
   bool _isLoading = true;
   String? _error;
-  String _selectedSpecialty = 'All';
+  String _selectedSpecialty = 'Усі';
   List<DoctorModel> _doctors = [];
   List<DoctorModel> _allDoctors = [];
 
@@ -41,7 +41,7 @@ class _DoctorsListPageState extends State<DoctorsListPage> {
 
   void _applyFilter() {
     setState(() {
-      _doctors = _selectedSpecialty == 'All'
+      _doctors = _selectedSpecialty == 'Усі'
           ? _allDoctors
           : _allDoctors
                 .where((d) => d.specialty == _selectedSpecialty)
@@ -51,7 +51,7 @@ class _DoctorsListPageState extends State<DoctorsListPage> {
 
   Future<void> _openFilter() async {
     final options = [
-      'All',
+      'Усі',
       ...{
         for (var d in _allDoctors)
           if (d.specialty.isNotEmpty) d.specialty,
@@ -62,55 +62,99 @@ class _DoctorsListPageState extends State<DoctorsListPage> {
 
     final result = await showModalBottomSheet<String>(
       context: context,
+      isScrollControlled: true, // дозволяє задавати власну висоту
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
       builder: (ctx) {
+        final screenHeight = MediaQuery.of(ctx).size.height;
+
         return SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 12),
-                child: Text(
-                  'Filter by specialty',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          child: StatefulBuilder(
+            builder: (context, setModalState) {
+              return Container(
+                height: screenHeight * 0.5, // 50% висоти екрана
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
                 ),
-              ),
-              ...options.map(
-                (opt) => RadioListTile<String>(
-                  title: Text(opt),
-                  value: opt,
-                  groupValue: tempSelected,
-                  onChanged: (val) => setState(() => tempSelected = val!),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: Row(
+                child: Column(
                   children: [
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () => Navigator.pop(ctx),
-                        child: const Text('Cancel'),
+                    const SizedBox(height: 8),
+                    Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[400],
+                        borderRadius: BorderRadius.circular(2),
                       ),
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(height: 12),
+                    const Text(
+                      'Filter by specialty',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+
+                    // Прокручуваний список опцій
                     Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => Navigator.pop(ctx, tempSelected),
-                        child: const Text('Apply'),
+                      child: Scrollbar(
+                        thumbVisibility: true,
+                        child: ListView.builder(
+                          itemCount: options.length,
+                          itemBuilder: (context, index) {
+                            final opt = options[index];
+                            return RadioListTile<String>(
+                              title: Text(opt),
+                              value: opt,
+                              groupValue: tempSelected,
+                              onChanged: (val) {
+                                setModalState(() => tempSelected = val!);
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+
+                    // Кнопки внизу
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12, bottom: 12),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: () => Navigator.pop(ctx),
+                              child: const Text('Cancel'),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () => Navigator.pop(ctx, tempSelected),
+                              child: const Text('Apply'),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
+              );
+            },
           ),
         );
       },
     );
 
     if (result != null && result != _selectedSpecialty) {
-      _selectedSpecialty = result;
-      _applyFilter();
+      setState(() {
+        _selectedSpecialty = result;
+        _applyFilter();
+      });
     }
   }
 
@@ -120,7 +164,7 @@ class _DoctorsListPageState extends State<DoctorsListPage> {
       appBar: AppBar(
         leading: const BackButton(),
         title: const Text(
-          'Doctors List',
+          'Список лікарів',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,

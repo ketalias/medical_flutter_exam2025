@@ -11,6 +11,7 @@ class HomePage extends StatelessWidget {
       fullName: 'Dr. Emily Carter',
       specialty: 'Cardiologist',
       imageUrl: '',
+      location: 'New York, USA',
     ),
     DoctorModel(
       id: '2',
