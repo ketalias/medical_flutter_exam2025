@@ -11,18 +11,14 @@ class BottomNavBar extends StatelessWidget {
     return BottomNavigationBar(
       currentIndex: currentIndex,
       type: BottomNavigationBarType.fixed,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
       onTap: (index) => _onItemTapped(context, index),
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Головна'),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.message),
-          label: 'Повідомлення',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_today),
-          label: 'Календар',
-        ),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Профіль'),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.message), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
       ],
     );
   }

@@ -4,6 +4,9 @@ import 'package:medical_flutter_exam2025/core/widgets/navigation/bottom_nav_bar.
 import 'package:medical_flutter_exam2025/core/theme/app_colors.dart';
 import 'package:medical_flutter_exam2025/core/theme/app_text_styles.dart';
 
+import 'package:medical_flutter_exam2025/core/widgets/categories/category_card.dart';
+import 'package:medical_flutter_exam2025/features/doctors/domain/doctor_category.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -23,7 +26,8 @@ class HomePage extends StatelessWidget {
               _buildHeader(context),
               const SizedBox(height: 16),
               _buildSearchBar(),
-              const SizedBox(height: 24),
+              const SizedBox(height: 12),
+              _buildCategoriesRow(),
             ],
           ),
         ),
@@ -40,7 +44,7 @@ class HomePage extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              'Find your desire\nhealth solution',
+              'Твоє здоров’я — \nнаш пріоритет',
               style: AppTextStyles.h2.copyWith(
                 color: AppColors.textPrimary,
                 height: 1.3,
@@ -67,7 +71,7 @@ class HomePage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: TextField(
         decoration: InputDecoration(
-          hintText: 'Search doctor...',
+          hintText: 'Пошук категорії лікаря...',
           hintStyle: TextStyle(color: AppColors.textLight, fontSize: 14),
           prefixIcon: Icon(Icons.search, color: AppColors.textLight),
           filled: true,
@@ -86,6 +90,40 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildCategoriesRow() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(padding: const EdgeInsets.symmetric(horizontal: 20)),
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 130,
+          child: ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            itemCount: doctorCategories.length,
+            itemBuilder: (context, index) {
+              final cat = doctorCategories[index];
+              return Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: SizedBox(
+                  width: 90,
+                  child: CategoryItem(
+                    category: cat,
+                    onTap: () {
+                      print('Натиснуто на: ${cat.name}');
+                    },
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
