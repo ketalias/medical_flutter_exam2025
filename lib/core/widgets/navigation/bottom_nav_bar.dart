@@ -15,8 +15,8 @@ class BottomNavBar extends StatelessWidget {
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Головна'),
         BottomNavigationBarItem(
-          icon: Icon(Icons.message),
-          label: 'Повідомлення',
+          icon: Icon(Icons.healing),
+          label: 'Лікарі',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.calendar_today),
@@ -30,7 +30,7 @@ class BottomNavBar extends StatelessWidget {
   void _onItemTapped(BuildContext context, int index) {
     final routes = [
       RouteNames.home,
-      RouteNames.messages,
+      RouteNames.doctorsList,
       RouteNames.calendar,
       RouteNames.profile,
     ];
