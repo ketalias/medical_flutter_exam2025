@@ -9,7 +9,7 @@ class LocationPage extends StatelessWidget {
   static const double clinicLatitude = 48.6208;
   static const double clinicLongitude = 22.2879;
   static const String clinicAddress =
-      'Universytetska St, 14\nUzhhorod, Ukraine';
+      'вул. Університетська 14\nУжгород, Україна';
 
   Future<void> _openInGoogleMaps() async {
     final Uri url = Uri.parse(
@@ -36,7 +36,7 @@ class LocationPage extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'Location',
+          'Наша локація',
           style: TextStyle(
             color: AppColors.textPrimary,
             fontWeight: FontWeight.w800,
@@ -137,7 +137,7 @@ class LocationPage extends StatelessWidget {
                 elevation: 0,
               ),
               child: const Text(
-                'See in Google Maps',
+                'Переглянути в Google Maps',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,

@@ -11,6 +11,8 @@ class BottomNavBar extends StatelessWidget {
     return BottomNavigationBar(
       currentIndex: currentIndex,
       type: BottomNavigationBarType.fixed,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
       onTap: (index) => _onItemTapped(context, index),
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Головна'),
