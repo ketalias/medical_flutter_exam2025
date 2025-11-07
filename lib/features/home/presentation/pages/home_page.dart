@@ -28,6 +28,8 @@ class HomePage extends StatelessWidget {
               _buildSearchBar(),
               const SizedBox(height: 12),
               _buildCategoriesRow(),
+              const SizedBox(height: 24),
+              _buildBanner(),
             ],
           ),
         ),
@@ -126,4 +128,79 @@ class HomePage extends StatelessWidget {
       ],
     );
   }
+}
+
+Widget _buildBanner() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: Stack(
+        alignment: Alignment.centerLeft,
+        children: [
+          Image.asset(
+            'assets/banners/home_page_banner.png',
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: 160,
+          ),
+
+          Container(
+            width: double.infinity,
+            height: 160,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.black.withOpacity(0.45), Colors.transparent],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Запишись на прийом',
+                  style: AppTextStyles.h2.copyWith(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                ElevatedButton(
+                  onPressed: () {
+                    // тут можна зробити перехід на сторінку запису
+                    print('Натиснуто "Записатися"');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text(
+                    'Записатися',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }
