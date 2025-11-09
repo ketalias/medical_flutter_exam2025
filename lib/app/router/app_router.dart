@@ -6,6 +6,8 @@ import '../../features/calendar/presentation/pages/calendar_page.dart';
 import '../../features/profile/presentation/pages/profile_page.dart';
 import '../../features/location/presentation/pages/location_page.dart';
 import '../../features/doctors/presentation/pages/doctors_list_page.dart';
+import '../../features/auth/login/pages/login_page.dart';
+import '../../features/auth/signup/pages/sign_up_page.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -38,6 +40,16 @@ class AppRouter {
       case RouteNames.doctorsList:
         return MaterialPageRoute(
           builder: (_) => const DoctorsListPage(),
+          settings: settings,
+        );
+      case RouteNames.login:
+        return MaterialPageRoute(
+          builder: (_) => const LoginPage(),
+          settings: settings,
+        );
+      case RouteNames.signUp:
+        return MaterialPageRoute(
+          builder: (_) => const SignUpPage(),
           settings: settings,
         );
       default:

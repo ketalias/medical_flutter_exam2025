@@ -4,7 +4,7 @@ import '../../../models/doctor_model.dart';
 class DoctorCard extends StatelessWidget {
   final DoctorModel doctor;
 
-  const DoctorCard({Key? key, required this.doctor}) : super(key: key);
+  const DoctorCard({super.key, required this.doctor});
 
   Widget _buildInitials() {
     return Center(
@@ -32,7 +32,7 @@ class DoctorCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Container(
+              child: SizedBox(
                 width: 128,
                 height: 128,
                 child: doctor.imageUrl.isNotEmpty

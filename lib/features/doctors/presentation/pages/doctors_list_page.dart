@@ -4,7 +4,7 @@ import '../../../../models/doctor_model.dart';
 import '../../widgets/doctor_card.dart';
 
 class DoctorsListPage extends StatefulWidget {
-  const DoctorsListPage({Key? key}) : super(key: key);
+  const DoctorsListPage({super.key});
 
   @override
   State<DoctorsListPage> createState() => _DoctorsListPageState();

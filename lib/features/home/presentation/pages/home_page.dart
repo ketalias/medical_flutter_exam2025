@@ -3,7 +3,6 @@ import 'package:medical_flutter_exam2025/app/router/route_names.dart';
 import 'package:medical_flutter_exam2025/core/widgets/navigation/bottom_nav_bar.dart';
 import 'package:medical_flutter_exam2025/core/theme/app_colors.dart';
 import 'package:medical_flutter_exam2025/core/theme/app_text_styles.dart';
-
 import 'package:medical_flutter_exam2025/core/widgets/categories/category_card.dart';
 import 'package:medical_flutter_exam2025/features/doctors/domain/doctor_category.dart';
 
@@ -12,6 +11,10 @@ class HomePage extends StatelessWidget {
 
   void _openClinicOnMap(BuildContext context) {
     Navigator.pushNamed(context, RouteNames.location);
+  }
+
+  void _openLogin(BuildContext context) {
+    Navigator.pushNamed(context, RouteNames.login);
   }
 
   @override
@@ -42,27 +45,42 @@ class HomePage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: Text(
-              'Твоє здоров’я — \nнаш пріоритет',
-              style: AppTextStyles.h2.copyWith(
-                color: AppColors.textPrimary,
-                height: 1.3,
-              ),
-            ),
-          ),
-          IconButton(
-            onPressed: () => _openClinicOnMap(context),
-            icon: const Icon(
-              Icons.location_on_outlined,
-              color: AppColors.primary,
-              size: 32,
-            ),
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
-          ),
-        ],
+      Expanded(
+      child: Text(
+      'Твоє здоров`я — \nнаш пріоритет',
+      style: AppTextStyles.h2.copyWith(
+      color: AppColors.textPrimary,
+        height: 1.3,
       ),
+    ),
+    ),
+    Row(
+    children: [
+    IconButton(
+    onPressed: () => _openLogin(context),
+    icon: const Icon(
+    Icons.login,
+    color: AppColors.primary,
+    size: 32,
+    ),
+    padding: EdgeInsets.zero,
+    constraints: const BoxConstraints(),
+    ),
+    const SizedBox(width: 16),
+    IconButton(
+    onPressed: () => _openClinicOnMap(context),
+    icon: const Icon(
+    Icons.location_on_outlined,
+    color: AppColors.primary,
+    size: 32,
+    ),
+    padding: EdgeInsets.zero,
+    constraints: const BoxConstraints(),
+    ),
+    ],
+    ),
+    ],
+    ),
     );
   }
 

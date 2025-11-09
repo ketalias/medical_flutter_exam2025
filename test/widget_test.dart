@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:medical_flutter_exam2025/app/router/app.dart';
 import 'package:medical_flutter_exam2025/main.dart';
 
 void main() {
