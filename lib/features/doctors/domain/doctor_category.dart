@@ -1,5 +1,3 @@
-import 'package:medical_flutter_exam2025/features/doctors/domain/doctor_category.dart';
-
 class DoctorCategory {
   final String id;
   final String name;

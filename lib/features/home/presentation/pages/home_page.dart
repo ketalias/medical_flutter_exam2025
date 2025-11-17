@@ -6,6 +6,7 @@ import 'package:medical_flutter_exam2025/core/theme/app_text_styles.dart';
 
 import 'package:medical_flutter_exam2025/core/widgets/categories/category_card.dart';
 import 'package:medical_flutter_exam2025/features/doctors/domain/doctor_category.dart';
+import '../../../../features/doctors/widgets/doctors_favorite.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -30,6 +31,8 @@ class HomePage extends StatelessWidget {
               _buildCategoriesRow(),
               const SizedBox(height: 24),
               _buildBanner(),
+              const SizedBox(height: 24),
+              DoctorsFavorite(),
             ],
           ),
         ),
