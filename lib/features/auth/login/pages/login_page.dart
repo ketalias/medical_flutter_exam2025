@@ -5,6 +5,7 @@ import 'package:medical_flutter_exam2025/app/router/route_names.dart';
 
 
 
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -315,7 +316,7 @@ class _LoginPageState extends State<LoginPage> {
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () {
-                        // Navigate to forgot password
+                        Navigator.pushNamed(context, RouteNames.forgotPassword);
                       },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
@@ -375,7 +376,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       TextButton(
                         onPressed: () {
-                          // Navigate to sign up
+                          Navigator.pushNamed(context, RouteNames.signUp);
                         },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,

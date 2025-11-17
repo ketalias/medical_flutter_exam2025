@@ -395,7 +395,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
                         child: const Text(
-                          'Sign Up',
+                          'Sin Up',
                           style: TextStyle(
                             fontFamily: 'Montserrat',
                             fontSize: 14,

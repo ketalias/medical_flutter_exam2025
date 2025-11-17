@@ -7,4 +7,5 @@ class RouteNames {
   static const String doctorsList = '/doctorsList';
   static const String login = '/auth/login';
   static const String signUp = '/auth/signUp';
+  static const String forgotPassword = '/auth/forgotPassword';
 }
