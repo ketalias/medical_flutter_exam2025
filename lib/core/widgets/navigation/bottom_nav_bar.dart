@@ -15,10 +15,16 @@ class BottomNavBar extends StatelessWidget {
       showUnselectedLabels: false,
       onTap: (index) => _onItemTapped(context, index),
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.message), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Головна'),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.healing),
+          label: 'Лікарі',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.calendar_today),
+          label: 'Календар',
+        ),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Профіль'),
       ],
     );
   }
@@ -26,7 +32,7 @@ class BottomNavBar extends StatelessWidget {
   void _onItemTapped(BuildContext context, int index) {
     final routes = [
       RouteNames.home,
-      RouteNames.messages,
+      RouteNames.doctorsList,
       RouteNames.calendar,
       RouteNames.profile,
     ];
