@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
-import 'app/router/app.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'features/splash/splash_screen.dart';
 
-Future<void> main() async {
-  await dotenv.load(fileName: ".env");
-  runApp(const ClinicApp());
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Medics',
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+      ),
+      home: const SplashScreen(), // Змініть на SplashScreen
+    );
+  }
 }
