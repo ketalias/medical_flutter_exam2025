@@ -7,6 +7,17 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       fontFamily: 'Roboto',
+
+      colorScheme: const ColorScheme.light(
+        primary: AppColors.primary,
+        secondary: AppColors.secondary,
+        surface: AppColors.white,
+        background: AppColors.background,
+        onPrimary: AppColors.white,
+        onSecondary: AppColors.white,
+        onSurface: AppColors.textPrimary,
+        onBackground: AppColors.textPrimary,
+      ),
       // Кольори
       primaryColor: AppColors.primary,
       scaffoldBackgroundColor: AppColors.background,
