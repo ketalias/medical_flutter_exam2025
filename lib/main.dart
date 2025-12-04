@@ -12,10 +12,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Medics',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
-      home: const SplashScreen(), // Змініть на SplashScreen
+      theme: ThemeData(primarySwatch: Colors.teal),
+      home: const SplashScreen(),
     );
   }
 }

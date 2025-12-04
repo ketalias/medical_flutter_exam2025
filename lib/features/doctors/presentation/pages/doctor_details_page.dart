@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../data/doctor_repository.dart';
 import '../../../../models/doctor_model.dart';
 import 'package:medical_flutter_exam2025/features/doctors/widgets/doctor_card.dart';
+import 'package:medical_flutter_exam2025/features/doctors/presentation/pages/doctor_booking_page.dart';
 
 class DoctorDetailsPage extends StatefulWidget {
   final DoctorModel doctor;
@@ -198,17 +199,19 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage> {
                       const SnackBar(content: Text("Оберіть дату та час")),
                     );
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.teal.shade600,
-                        content: const Text(
-                          "Ви успішно записані!",
-                          style: TextStyle(fontWeight: FontWeight.w600),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DoctorBookingPage(
+                          doctor: doctor,
+                          selectedDate: dates[selectedDate]["day"]!,
+                          selectedTime: times[selectedTime],
                         ),
                       ),
                     );
                   }
                 },
+
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF00897B),
                   shape: RoundedRectangleBorder(
