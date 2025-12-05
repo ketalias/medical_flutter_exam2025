@@ -1,15 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:medical_flutter_exam2025/app/router/route_names.dart';
-import 'package:medical_flutter_exam2025/core/widgets/navigation/bottom_nav_bar.dart';
-import 'package:medical_flutter_exam2025/core/theme/app_colors.dart';
-import 'package:medical_flutter_exam2025/core/theme/app_text_styles.dart';
-
-import 'package:medical_flutter_exam2025/core/widgets/categories/category_card.dart';
-import 'package:medical_flutter_exam2025/features/doctors/domain/doctor_category.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/widgets/navigation/bottom_nav_bar.dart';
+import '../../../../core/widgets/categories/category_card.dart';
+import '../../../../features/doctors/domain/doctor_category.dart';
 import '../../../../features/doctors/widgets/doctors_favorite.dart';
+import '../../../../app/router/route_names.dart';
+import '../../../../features/doctors/presentation/pages/doctors_list_page.dart';
 
-class HomePage extends StatelessWidget {
+// SEARCH IMPORTS
+import '../../../../core/utils/search_trie.dart';
+import '../../../../models/search_models.dart';
+import '../../../../data/doctor_repository.dart';
+import '../widgets/clinic_search_delegate.dart';
+
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final SearchTrie _searchTrie = SearchTrie();
+  final DoctorRepository _doctorRepository = DoctorRepository();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSearchData();
+  }
+
+  Future<void> _loadSearchData() async {
+    // 1. Load Real Doctors into Search
+    final doctors = await _doctorRepository.getDoctors();
+    for (var doc in doctors) {
+      _searchTrie.insert(SearchableDoctor(doc));
+    }
+
+    // 2. Load Symptom Mappings (The "Knowledge Base")
+    // Note: The 'targetCategory' MUST match the strings in doctor_category.dart
+    final symptoms = [
+      Symptom(id: 's1', name: 'Біль у вусі', targetCategory: 'ЛОР'),
+      Symptom(id: 's2', name: 'Закладеність носа', targetCategory: 'ЛОР'),
+      Symptom(id: 's3', name: 'Аритмія', targetCategory: 'Кардіолог'),
+      Symptom(id: 's4', name: 'Біль у серці', targetCategory: 'Кардіолог'),
+      Symptom(id: 's5', name: 'Висип на шкірі', targetCategory: 'Дерматолог'),
+      Symptom(id: 's6', name: 'Головний біль', targetCategory: 'Невролог'),
+      Symptom(id: 's7', name: 'Кашель', targetCategory: 'Терапевт'),
+      Symptom(id: 's8', name: 'Температура', targetCategory: 'Терапевт'),
+      Symptom(id: 's9', name: 'Погіршення зору', targetCategory: 'Офтальмолог'),
+    ];
+
+    for (var s in symptoms) {
+      _searchTrie.insert(s);
+    }
+  }
 
   void _openClinicOnMap(BuildContext context) {
     Navigator.pushNamed(context, RouteNames.location);
@@ -26,13 +72,13 @@ class HomePage extends StatelessWidget {
             children: [
               _buildHeader(context),
               const SizedBox(height: 16),
-              _buildSearchBar(),
+              _buildSearchBar(context),
               const SizedBox(height: 12),
               _buildCategoriesRow(),
               const SizedBox(height: 24),
               _buildBanner(),
               const SizedBox(height: 24),
-              DoctorsFavorite(),
+              const DoctorsFavorite(),
             ],
           ),
         ),
@@ -41,6 +87,41 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  Widget _buildSearchBar(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: GestureDetector(
+        onTap: () {
+          showSearch(
+            context: context, 
+            delegate: ClinicSearchDelegate(_searchTrie)
+          );
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          decoration: BoxDecoration(
+            color: AppColors.background,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppColors.primary, width: 1),
+          ),
+          child: Row(
+            children: [
+              const Icon(Icons.search, color: AppColors.textLight),
+              const SizedBox(width: 12),
+              Text(
+                'Пошук симптому або лікаря...',
+                style: TextStyle(color: AppColors.textLight, fontSize: 14),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ... (Keep _buildHeader, _buildCategoriesRow, and _buildBanner exactly as they were in your full_code.txt) ...
+  // Copy them here from your original file.
+  
   Widget _buildHeader(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 40, left: 20, right: 20, bottom: 16),
@@ -71,34 +152,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildSearchBar() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: 'Пошук категорії лікаря...',
-          hintStyle: TextStyle(color: AppColors.textLight, fontSize: 14),
-          prefixIcon: Icon(Icons.search, color: AppColors.textLight),
-          filled: true,
-          fillColor: AppColors.background,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.primary, width: 1),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
-          ),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 14,
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildCategoriesRow() {
+    // ... (Use your existing code)
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -120,7 +175,12 @@ class HomePage extends StatelessWidget {
                   child: CategoryItem(
                     category: cat,
                     onTap: () {
-                      print('Натиснуто на: ${cat.name}');
+                       Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => DoctorsListPage(initialFilter: cat.name),
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -131,10 +191,10 @@ class HomePage extends StatelessWidget {
       ],
     );
   }
-}
 
-Widget _buildBanner() {
-  return Padding(
+  // Use your existing _buildBanner code here...
+  Widget _buildBanner() {
+      return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20),
     child: ClipRRect(
       borderRadius: BorderRadius.circular(16),
@@ -145,9 +205,8 @@ Widget _buildBanner() {
             'assets/banners/home_page_banner.png',
             fit: BoxFit.cover,
             width: double.infinity,
-            height: 160,
+           height: 160,
           ),
-
           Container(
             width: double.infinity,
             height: 160,
@@ -159,51 +218,50 @@ Widget _buildBanner() {
               ),
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
+             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Запишись на прийом',
-                  style: AppTextStyles.h2.copyWith(
+                   style: AppTextStyles.h2.copyWith(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
-                ),
+                 ),
                 const SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () {
-                    // тут можна зробити перехід на сторінку запису
-                    print('Натиснуто "Записатися"');
+                     print('Натиснуто "Записатися"');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
-                      vertical: 10,
+                       vertical: 10,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                  ),
+                   ),
                   child: const Text(
                     'Записатися',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 14,
+                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
-              ],
+               ],
             ),
           ),
         ],
       ),
     ),
   );
+  }
 }

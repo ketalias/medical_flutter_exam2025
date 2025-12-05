@@ -4,7 +4,9 @@ import '../../../../models/doctor_model.dart';
 import '../../widgets/doctor_card.dart';
 
 class DoctorsListPage extends StatefulWidget {
-  const DoctorsListPage({Key? key}) : super(key: key);
+  final String? initialFilter; // ADD THIS
+
+  const DoctorsListPage({Key? key, this.initialFilter}) : super(key: key);
 
   @override
   State<DoctorsListPage> createState() => _DoctorsListPageState();
@@ -21,6 +23,10 @@ class _DoctorsListPageState extends State<DoctorsListPage> {
   @override
   void initState() {
     super.initState();
+    // APPLY THE FILTER FROM THE SEARCH HERE
+    if (widget.initialFilter != null) {
+      _selectedSpecialty = widget.initialFilter!;
+    }
     _loadDoctors();
   }
 
