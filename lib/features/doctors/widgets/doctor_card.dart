@@ -5,7 +5,7 @@ import 'package:medical_flutter_exam2025/features/doctors/presentation/pages/doc
 class DoctorCard extends StatelessWidget {
   final DoctorModel doctor;
 
-  const DoctorCard({Key? key, required this.doctor}) : super(key: key);
+  const DoctorCard({super.key, required this.doctor});
 
   Widget _buildInitials() {
     return Center(
@@ -29,7 +29,6 @@ class DoctorCard extends StatelessWidget {
           MaterialPageRoute(builder: (_) => DoctorDetailsPage(doctor: doctor)),
         );
       },
-
       child: Card(
         elevation: 2,
         color: const Color.fromARGB(255, 255, 255, 255),
@@ -41,7 +40,7 @@ class DoctorCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Container(
+                child: SizedBox(
                   width: 128,
                   height: 128,
                   child: doctor.imageUrl.isNotEmpty

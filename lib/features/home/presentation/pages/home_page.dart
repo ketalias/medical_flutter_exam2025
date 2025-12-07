@@ -7,7 +7,6 @@ import '../../../../features/doctors/domain/doctor_category.dart';
 import '../../../../features/doctors/widgets/doctors_favorite.dart';
 import '../../../../app/router/route_names.dart';
 import '../../../../features/doctors/presentation/pages/doctors_list_page.dart';
-
 // SEARCH IMPORTS
 import '../../../../core/utils/search_trie.dart';
 import '../../../../models/search_models.dart';
@@ -61,6 +60,10 @@ class _HomePageState extends State<HomePage> {
     Navigator.pushNamed(context, RouteNames.location);
   }
 
+  void _openLogin(BuildContext context) {
+    Navigator.pushNamed(context, RouteNames.login);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,8 +96,8 @@ class _HomePageState extends State<HomePage> {
       child: GestureDetector(
         onTap: () {
           showSearch(
-            context: context, 
-            delegate: ClinicSearchDelegate(_searchTrie)
+            context: context,
+            delegate: ClinicSearchDelegate(_searchTrie),
           );
         },
         child: Container(
@@ -121,7 +124,7 @@ class _HomePageState extends State<HomePage> {
 
   // ... (Keep _buildHeader, _buildCategoriesRow, and _buildBanner exactly as they were in your full_code.txt) ...
   // Copy them here from your original file.
-  
+
   Widget _buildHeader(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 40, left: 20, right: 20, bottom: 16),
@@ -130,22 +133,37 @@ class _HomePageState extends State<HomePage> {
         children: [
           Expanded(
             child: Text(
-              'Твоє здоров’я — \nнаш пріоритет',
+              'Твоє здоров`я — \nнаш пріоритет',
               style: AppTextStyles.h2.copyWith(
                 color: AppColors.textPrimary,
                 height: 1.3,
               ),
             ),
           ),
-          IconButton(
-            onPressed: () => _openClinicOnMap(context),
-            icon: const Icon(
-              Icons.location_on_outlined,
-              color: AppColors.primary,
-              size: 32,
-            ),
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
+          Row(
+            children: [
+              IconButton(
+                onPressed: () => _openLogin(context),
+                icon: const Icon(
+                  Icons.login,
+                  color: AppColors.primary,
+                  size: 32,
+                ),
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+              ),
+              const SizedBox(width: 16),
+              IconButton(
+                onPressed: () => _openClinicOnMap(context),
+                icon: const Icon(
+                  Icons.location_on_outlined,
+                  color: AppColors.primary,
+                  size: 32,
+                ),
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+              ),
+            ],
           ),
         ],
       ),
@@ -175,10 +193,11 @@ class _HomePageState extends State<HomePage> {
                   child: CategoryItem(
                     category: cat,
                     onTap: () {
-                       Navigator.push(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => DoctorsListPage(initialFilter: cat.name),
+                          builder: (_) =>
+                              DoctorsListPage(initialFilter: cat.name),
                         ),
                       );
                     },
@@ -194,74 +213,74 @@ class _HomePageState extends State<HomePage> {
 
   // Use your existing _buildBanner code here...
   Widget _buildBanner() {
-      return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: Stack(
-        alignment: Alignment.centerLeft,
-        children: [
-          Image.asset(
-            'assets/banners/home_page_banner.png',
-            fit: BoxFit.cover,
-            width: double.infinity,
-           height: 160,
-          ),
-          Container(
-            width: double.infinity,
-            height: 160,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.black.withOpacity(0.45), Colors.transparent],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Stack(
+          alignment: Alignment.centerLeft,
+          children: [
+            Image.asset(
+              'assets/banners/home_page_banner.png',
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: 160,
+            ),
+            Container(
+              width: double.infinity,
+              height: 160,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.black.withOpacity(0.45), Colors.transparent],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Запишись на прийом',
-                   style: AppTextStyles.h2.copyWith(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                 ),
-                const SizedBox(height: 8),
-                ElevatedButton(
-                  onPressed: () {
-                     print('Натиснуто "Записатися"');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                       vertical: 10,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                   ),
-                  child: const Text(
-                    'Записатися',
-                    style: TextStyle(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Запишись на прийом',
+                    style: AppTextStyles.h2.copyWith(
                       color: Colors.white,
-                       fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-               ],
+                  const SizedBox(height: 8),
+                  ElevatedButton(
+                    onPressed: () {
+                      print('Натиснуто "Записатися"');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text(
+                      'Записатися',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
+    );
   }
 }
