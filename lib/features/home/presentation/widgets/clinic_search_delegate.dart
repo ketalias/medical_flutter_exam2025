@@ -6,6 +6,7 @@ import '../../../doctors/presentation/pages/doctor_details_page.dart';
 import '../../../doctors/presentation/pages/doctors_list_page.dart';
 
 class ClinicSearchDelegate extends SearchDelegate {
+  // Update: Accepts SearchTrie, not List<SearchableItem>
   final SearchTrie searchTrie;
 
   ClinicSearchDelegate(this.searchTrie);
@@ -36,14 +37,25 @@ class ClinicSearchDelegate extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) => _buildSearchResults(context);
 
   Widget _buildSearchResults(BuildContext context) {
-    final results = searchTrie.search(query);
+    // FIX: Removed vector logic. Using Trie search.
+    // tolerance: 1 allows for 1 typo (e.g. 'ьіль' -> 'біль')
+    final results = searchTrie.search(query, tolerance: 1);
 
-    return ListView.builder(
+    if (results.isEmpty && query.isNotEmpty) {
+      return Center(
+        child: Text(
+          'Нічого не знайдено для "$query"',
+          style: const TextStyle(color: Colors.grey),
+        ),
+      );
+    }
+
+    return ListView.separated(
       itemCount: results.length,
+      separatorBuilder: (context, index) => const Divider(height: 1),
       itemBuilder: (context, index) {
         final item = results[index];
-
-        // Define Icon and Color based on type
+        
         IconData icon;
         Color color;
         
@@ -53,7 +65,7 @@ class ClinicSearchDelegate extends SearchDelegate {
             color = AppColors.primary;
             break;
           case SearchItemType.symptom:
-            icon = Icons.healing; // Bandage icon for symptoms
+            icon = Icons.healing;
             color = Colors.redAccent;
             break;
           case SearchItemType.service:
@@ -67,12 +79,19 @@ class ClinicSearchDelegate extends SearchDelegate {
             backgroundColor: color.withOpacity(0.1),
             child: Icon(icon, color: color),
           ),
-          title: Text(item.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          title: RichText(
+            text: TextSpan(
+              text: item.title,
+              style: const TextStyle(
+                color: Colors.black, 
+                fontWeight: FontWeight.bold,
+                fontSize: 16
+              ),
+            ),
+          ),
           subtitle: Text(item.subtitle),
           onTap: () {
-            // LOGIC FOR ROUTING
             if (item.type == SearchItemType.doctor) {
-              // 1. Go to specific Doctor Profile
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -80,8 +99,8 @@ class ClinicSearchDelegate extends SearchDelegate {
                 ),
               );
             } else if (item.type == SearchItemType.symptom) {
-              // 2. Go to Doctor List filtered by the symptom's category
               final symptom = item as Symptom;
+              // FIX: Using targetCategory instead of primaryCategory
               Navigator.push(
                 context,
                 MaterialPageRoute(

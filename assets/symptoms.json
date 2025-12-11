@@ -1,0 +1,362 @@
+[
+  {
+    "id": "gen_01",
+    "name": "Висока температура",
+    "targetCategory": "Терапевт",
+    "popularity": 95
+  },
+  {
+    "id": "gen_02",
+    "name": "Жар",
+    "targetCategory": "Терапевт",
+    "popularity": 90
+  },
+  {
+    "id": "gen_03",
+    "name": "Озноб",
+    "targetCategory": "Терапевт",
+    "popularity": 85
+  },
+  {
+    "id": "gen_04",
+    "name": "Загальна слабкість",
+    "targetCategory": "Терапевт",
+    "popularity": 80
+  },
+  {
+    "id": "gen_05",
+    "name": "Втома",
+    "targetCategory": "Терапевт",
+    "popularity": 75
+  },
+  {
+    "id": "gen_06",
+    "name": "Кашель",
+    "targetCategory": "Терапевт",
+    "popularity": 92
+  },
+  {
+    "id": "gen_07",
+    "name": "Сухий кашель",
+    "targetCategory": "Терапевт",
+    "popularity": 88
+  },
+  {
+    "id": "gen_08",
+    "name": "Вологий кашель",
+    "targetCategory": "Терапевт",
+    "popularity": 87
+  },
+  {
+    "id": "ent_01",
+    "name": "Біль у горлі",
+    "targetCategory": "ЛОР",
+    "popularity": 93
+  },
+  {
+    "id": "ent_02",
+    "name": "Першіння в горлі",
+    "targetCategory": "ЛОР",
+    "popularity": 80
+  },
+  {
+    "id": "ent_03",
+    "name": "Втрата голосу",
+    "targetCategory": "ЛОР",
+    "popularity": 70
+  },
+  {
+    "id": "ent_04",
+    "name": "Біль у вусі",
+    "targetCategory": "ЛОР",
+    "popularity": 85
+  },
+  {
+    "id": "ent_05",
+    "name": "Закладеність вуха",
+    "targetCategory": "ЛОР",
+    "popularity": 75
+  },
+  {
+    "id": "ent_06",
+    "name": "Шум у вухах",
+    "targetCategory": "ЛОР",
+    "popularity": 65
+  },
+  {
+    "id": "ent_07",
+    "name": "Нежить",
+    "targetCategory": "ЛОР",
+    "popularity": 90
+  },
+  {
+    "id": "ent_08",
+    "name": "Закладеність носа",
+    "targetCategory": "ЛОР",
+    "popularity": 88
+  },
+  {
+    "id": "ent_09",
+    "name": "Хропіння",
+    "targetCategory": "ЛОР",
+    "popularity": 60
+  },
+  {
+    "id": "ent_10",
+    "name": "Кровотеча з носа",
+    "targetCategory": "ЛОР",
+    "popularity": 72
+  },
+  {
+    "id": "cardio_01",
+    "name": "Біль у серці",
+    "targetCategory": "Кардіолог",
+    "popularity": 96
+  },
+  {
+    "id": "cardio_02",
+    "name": "Колючий біль у грудях",
+    "targetCategory": "Кардіолог",
+    "popularity": 90
+  },
+  {
+    "id": "cardio_03",
+    "name": "Аритмія",
+    "targetCategory": "Кардіолог",
+    "popularity": 85
+  },
+  {
+    "id": "cardio_04",
+    "name": "Прискорене серцебиття",
+    "targetCategory": "Кардіолог",
+    "popularity": 88
+  },
+  {
+    "id": "cardio_05",
+    "name": "Високий тиск",
+    "targetCategory": "Кардіолог",
+    "popularity": 94
+  },
+  {
+    "id": "cardio_06",
+    "name": "Низький тиск",
+    "targetCategory": "Кардіолог",
+    "popularity": 80
+  },
+  {
+    "id": "cardio_07",
+    "name": "Задишка",
+    "targetCategory": "Кардіолог",
+    "popularity": 82
+  },
+  {
+    "id": "cardio_08",
+    "name": "Набряки ніг",
+    "targetCategory": "Кардіолог",
+    "popularity": 75
+  },
+  {
+    "id": "neuro_01",
+    "name": "Головний біль",
+    "targetCategory": "Невролог",
+    "popularity": 95
+  },
+  {
+    "id": "neuro_02",
+    "name": "Мігрень",
+    "targetCategory": "Невролог",
+    "popularity": 85
+  },
+  {
+    "id": "neuro_03",
+    "name": "Запаморочення",
+    "targetCategory": "Невролог",
+    "popularity": 88
+  },
+  {
+    "id": "neuro_04",
+    "name": "Втрата свідомості",
+    "targetCategory": "Невролог",
+    "popularity": 90
+  },
+  {
+    "id": "neuro_05",
+    "name": "Біль у спині",
+    "targetCategory": "Невролог",
+    "popularity": 92
+  },
+  {
+    "id": "neuro_06",
+    "name": "Біль у попереку",
+    "targetCategory": "Невролог",
+    "popularity": 88
+  },
+  {
+    "id": "neuro_07",
+    "name": "Оніміння рук",
+    "targetCategory": "Невролог",
+    "popularity": 78
+  },
+  {
+    "id": "neuro_08",
+    "name": "Оніміння ніг",
+    "targetCategory": "Невролог",
+    "popularity": 76
+  },
+  {
+    "id": "neuro_09",
+    "name": "Порушення сну",
+    "targetCategory": "Невролог",
+    "popularity": 70
+  },
+  {
+    "id": "neuro_10",
+    "name": "Безсоння",
+    "targetCategory": "Невролог",
+    "popularity": 72
+  },
+  {
+    "id": "neuro_11",
+    "name": "Нервовий тик",
+    "targetCategory": "Невролог",
+    "popularity": 60
+  },
+  {
+    "id": "derm_01",
+    "name": "Висип на шкірі",
+    "targetCategory": "Дерматолог",
+    "popularity": 90
+  },
+  {
+    "id": "derm_02",
+    "name": "Свербіж шкіри",
+    "targetCategory": "Дерматолог",
+    "popularity": 85
+  },
+  {
+    "id": "derm_03",
+    "name": "Акне",
+    "targetCategory": "Дерматолог",
+    "popularity": 92
+  },
+  {
+    "id": "derm_04",
+    "name": "Прищі",
+    "targetCategory": "Дерматолог",
+    "popularity": 90
+  },
+  {
+    "id": "derm_05",
+    "name": "Лущення шкіри",
+    "targetCategory": "Дерматолог",
+    "popularity": 75
+  },
+  {
+    "id": "derm_06",
+    "name": "Зміна кольору родимки",
+    "targetCategory": "Дерматолог",
+    "popularity": 88
+  },
+  {
+    "id": "derm_07",
+    "name": "Випадіння волосся",
+    "targetCategory": "Дерматолог",
+    "popularity": 80
+  },
+  {
+    "id": "derm_08",
+    "name": "Грибок нігтів",
+    "targetCategory": "Дерматолог",
+    "popularity": 70
+  },
+  {
+    "id": "ophth_01",
+    "name": "Погіршення зору",
+    "targetCategory": "Офтальмолог",
+    "popularity": 85
+  },
+  {
+    "id": "ophth_02",
+    "name": "Біль в очах",
+    "targetCategory": "Офтальмолог",
+    "popularity": 80
+  },
+  {
+    "id": "ophth_03",
+    "name": "Почервоніння очей",
+    "targetCategory": "Офтальмолог",
+    "popularity": 82
+  },
+  {
+    "id": "ophth_04",
+    "name": "Сухість в очах",
+    "targetCategory": "Офтальмолог",
+    "popularity": 75
+  },
+  {
+    "id": "ophth_05",
+    "name": "Сльозотеча",
+    "targetCategory": "Офтальмолог",
+    "popularity": 70
+  },
+  {
+    "id": "uro_01",
+    "name": "Біль при сечовипусканні",
+    "targetCategory": "Уролог",
+    "popularity": 88
+  },
+  {
+    "id": "uro_02",
+    "name": "Часте сечовипускання",
+    "targetCategory": "Уролог",
+    "popularity": 85
+  },
+  {
+    "id": "uro_03",
+    "name": "Біль у нирках",
+    "targetCategory": "Уролог",
+    "popularity": 90
+  },
+  {
+    "id": "uro_04",
+    "name": "Коліки",
+    "targetCategory": "Уролог",
+    "popularity": 82
+  },
+  {
+    "id": "gyno_01",
+    "name": "Біль внизу живота",
+    "targetCategory": "Гінеколог",
+    "popularity": 90
+  },
+  {
+    "id": "gyno_02",
+    "name": "Порушення циклу",
+    "targetCategory": "Гінеколог",
+    "popularity": 88
+  },
+  {
+    "id": "gyno_03",
+    "name": "Вагітність",
+    "targetCategory": "Гінеколог",
+    "popularity": 95
+  },
+  {
+    "id": "ped_01",
+    "name": "Плач дитини",
+    "targetCategory": "Педіатр",
+    "popularity": 80
+  },
+  {
+    "id": "ped_02",
+    "name": "Висип у дитини",
+    "targetCategory": "Педіатр",
+    "popularity": 85
+  },
+  {
+    "id": "ped_03",
+    "name": "Температура у дитини",
+    "targetCategory": "Педіатр",
+    "popularity": 95
+  }
+]

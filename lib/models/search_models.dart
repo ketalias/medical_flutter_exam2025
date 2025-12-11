@@ -8,6 +8,7 @@ abstract class SearchableItem {
   String get title;       // Doctor Name or Symptom Name
   String get subtitle;    // Specialty or Description
   SearchItemType get type;
+  int get score;          // NEW: Used to sort by "Most Probable"
 }
 
 /// Wrapper for your existing DoctorModel
@@ -23,22 +24,28 @@ class SearchableDoctor implements SearchableItem {
   String get title => doctor.fullName;
   
   @override
-  String get subtitle => doctor.specialty; // e.g. "ЛОР"
+  String get subtitle => doctor.specialty; 
 
   @override
   SearchItemType get type => SearchItemType.doctor;
+
+  // We use the doctor's 'likes' as their popularity score
+  @override
+  int get score => doctor.likes; 
 }
 
-/// New Model for Symptoms (The Routing Logic)
+/// Model for Symptoms (The Routing Logic)
 class Symptom implements SearchableItem {
   final String id;
-  final String name;           // e.g. "Біль у вусі"
-  final String targetCategory; // e.g. "ЛОР" (Must match your category names exactly)
+  final String name;           
+  final String targetCategory; 
+  final int popularity; // NEW: Allows manual ranking of common symptoms
 
   Symptom({
     required this.id, 
     required this.name, 
-    required this.targetCategory
+    required this.targetCategory,
+    this.popularity = 50, // Default mid-range score
   });
 
   @override
@@ -49,9 +56,12 @@ class Symptom implements SearchableItem {
 
   @override
   SearchItemType get type => SearchItemType.symptom;
+
+  @override
+  int get score => popularity;
 }
 
-/// (Optional) Services if you still need them
+/// (Optional) Services
 class MedicalService implements SearchableItem {
   final String id;
   final String name;
@@ -67,4 +77,7 @@ class MedicalService implements SearchableItem {
 
   @override
   SearchItemType get type => SearchItemType.service;
+
+  @override
+  int get score => 10; // Lower priority than doctors or symptoms
 }

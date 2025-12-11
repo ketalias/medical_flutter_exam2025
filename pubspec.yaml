@@ -28,7 +28,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/banners/
-
+    - assets/symptoms.json
   fonts:
     - family: Montserrat
       fonts:
