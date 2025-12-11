@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../app/router/route_names.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -79,10 +80,7 @@ class OnboardingPage extends StatelessWidget {
                 height: 56,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => const LoginPage()),
-                    // );
+                    Navigator.pushNamed(context, RouteNames.login);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF199A8E),
@@ -111,10 +109,7 @@ class OnboardingPage extends StatelessWidget {
                 height: 56,
                 child: OutlinedButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => const SignUpPage()),
-                    // );
+                    Navigator.pushNamed(context, RouteNames.signUp);
                   },
                   style: OutlinedButton.styleFrom(
                     foregroundColor: const Color(0xFF199A8E),

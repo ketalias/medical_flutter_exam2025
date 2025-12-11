@@ -2,8 +2,8 @@ import '../../models/appointment_model.dart';
 import '../../models/doctor_model.dart';
 
 class AppointmentRepository {
-  // Mock data for appointments
-  final List<AppointmentModel> _mockAppointments = [
+  // Shared mock data for appointments
+  static final List<AppointmentModel> _mockAppointments = [
     AppointmentModel(
       id: '1',
       doctor: DoctorModel(
@@ -83,7 +83,7 @@ class AppointmentRepository {
 
   Future<List<AppointmentModel>> getAppointments() async {
     await Future.delayed(const Duration(milliseconds: 500));
-    return _mockAppointments;
+    return List<AppointmentModel>.unmodifiable(_mockAppointments);
   }
 
   Future<List<AppointmentModel>> getAppointmentsByDate(DateTime date) async {
@@ -106,5 +106,10 @@ class AppointmentRepository {
         .where((appointment) => appointment.appointmentTime.isAfter(now))
         .toList()
       ..sort((a, b) => a.appointmentTime.compareTo(b.appointmentTime));
+  }
+
+  Future<void> addAppointment(AppointmentModel appointment) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    _mockAppointments.add(appointment);
   }
 }

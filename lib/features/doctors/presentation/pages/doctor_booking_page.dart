@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:medical_flutter_exam2025/app/router/route_names.dart';
+import 'package:medical_flutter_exam2025/data/appointment_repository.dart';
+import 'package:medical_flutter_exam2025/models/appointment_model.dart';
 import 'package:medical_flutter_exam2025/models/doctor_model.dart';
 
 class DoctorBookingPage extends StatefulWidget {
@@ -19,7 +22,21 @@ class DoctorBookingPage extends StatefulWidget {
 
 class _DoctorBookingPageState extends State<DoctorBookingPage> {
   String selectedPaymentMethod = 'VISA';
+  String _visitReason = 'Біль у ... (опишіть, що вас турбує)';
+  late final TextEditingController _reasonController;
+  final AppointmentRepository _appointmentRepository = AppointmentRepository();
 
+  @override
+  void initState() {
+    super.initState();
+    _reasonController = TextEditingController(text: _visitReason);
+  }
+
+  @override
+  void dispose() {
+    _reasonController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,11 +230,9 @@ class _DoctorBookingPageState extends State<DoctorBookingPage> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {
-                          // Show reason change dialog
-                        },
+                        onPressed: _showReasonDialog,
                         child: const Text(
-                          'Змінити',
+                          'Опишіть, що вас турбує',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey,
@@ -252,9 +267,9 @@ class _DoctorBookingPageState extends State<DoctorBookingPage> {
                           ),
                         ),
                         const SizedBox(width: 12),
-                        const Text(
-                          'Біль у животі',
-                          style: TextStyle(
+                        Text(
+                          _visitReason,
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
                             color: Colors.black87,
@@ -398,8 +413,7 @@ class _DoctorBookingPageState extends State<DoctorBookingPage> {
                   child: SizedBox(
                     height: 56,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // ЛОГІКА КНОПКИ 'ЗАПИСАТИСЯ'
+                      onPressed: () async {
                         if (widget.selectedDate.isEmpty ||
                             widget.selectedTime.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -407,84 +421,89 @@ class _DoctorBookingPageState extends State<DoctorBookingPage> {
                               content: Text("Оберіть дату та час"),
                             ),
                           );
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                contentPadding: const EdgeInsets.all(24),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(16),
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xFFE6F4F1),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: const Icon(
-                                        Icons.check,
-                                        size: 48,
-                                        color: Color(0xFF00897B),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20),
-                                    const Text(
-                                      'Оплата успішна',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    const Text(
-                                      'Ви успішно записані на консультацію. ',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 24),
-                                    SizedBox(
-                                      width: double.infinity,
-                                      height: 48,
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.pop(
-                                            context,
-                                          ); // закриває попап
-                                          // TODO: Додати навігацію в чат з лікарем
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: const Color(
-                                            0xFF00897B,
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              12,
-                                            ),
-                                          ),
-                                        ),
-                                        child: const Text(
-                                          'Переглянути свої записи',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
+                          return;
                         }
+
+                        await _saveAppointment();
+                        if (!mounted) return;
+
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              contentPadding: const EdgeInsets.all(24),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: const BoxDecoration(
+                                      color: Color(0xFFE6F4F1),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Icon(
+                                      Icons.check,
+                                      size: 48,
+                                      color: Color(0xFF00897B),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  const Text(
+                                    'Оплата успішна',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  const Text(
+                                    'Ви успішно записані на консультацію. ',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 24),
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height: 48,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        Navigator.pushNamed(
+                                          context,
+                                          RouteNames.calendar,
+                                        );
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: const Color(
+                                          0xFF00897B,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                      ),
+                                      child: const Text(
+                                        'Переглянути свої записи',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(
@@ -536,4 +555,94 @@ class _DoctorBookingPageState extends State<DoctorBookingPage> {
       ],
     );
   }
+
+  void _showReasonDialog() {
+    showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          title: const Text('Змінити причину візиту'),
+          content: TextField(
+            controller: _reasonController,
+            maxLines: 3,
+            decoration: const InputDecoration(
+              hintText: 'Опишіть, що вас турбує',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(dialogContext);
+              },
+              child: const Text('Скасувати'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                final newReason = _reasonController.text.trim();
+                if (newReason.isNotEmpty) {
+                  setState(() {
+                    _visitReason = newReason;
+                    _reasonController.text = newReason;
+                    _reasonController.selection = TextSelection.fromPosition(
+                      TextPosition(offset: newReason.length),
+                    );
+                  });
+                }
+                Navigator.pop(dialogContext);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF00897B),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: const Text('Зберегти'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _saveAppointment() async {
+    final appointment = AppointmentModel(
+      id: _generateAppointmentId(),
+      doctor: widget.doctor,
+      appointmentTime: _composeAppointmentDate(),
+      notes: _visitReason,
+      status: 'scheduled',
+    );
+
+    await _appointmentRepository.addAppointment(appointment);
+  }
+
+  DateTime _composeAppointmentDate() {
+    final now = DateTime.now();
+    final dayNumber = int.tryParse(widget.selectedDate) ?? now.day;
+    final timeParts = widget.selectedTime.split(':');
+    final hour = timeParts.isNotEmpty ? int.tryParse(timeParts.first) ?? 0 : 0;
+    final minute =
+        timeParts.length > 1 ? int.tryParse(timeParts[1]) ?? 0 : 0;
+    int year = now.year;
+    int month = now.month;
+
+    DateTime candidate =
+        DateTime(year, month, dayNumber, hour, minute);
+
+    if (candidate.isBefore(now)) {
+      month++;
+      if (month > 12) {
+        month = 1;
+        year++;
+      }
+      candidate = DateTime(year, month, dayNumber, hour, minute);
+    }
+
+    return candidate;
+  }
+
+  String _generateAppointmentId() =>
+      DateTime.now().millisecondsSinceEpoch.toString();
 }

@@ -6,7 +6,7 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
-      fontFamily: 'Roboto',
+      fontFamily: 'Open Sans',
 
       colorScheme: const ColorScheme.light(
         primary: AppColors.primary,

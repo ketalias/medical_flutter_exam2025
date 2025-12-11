@@ -1,4 +1,6 @@
 class RouteNames {
+  static const String splash = '/splash';
+  static const String onboarding = '/onboarding';
   static const String home = '/';
   static const String messages = '/messages';
   static const String calendar = '/calendar';

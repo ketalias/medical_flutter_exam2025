@@ -1,45 +1,23 @@
 import 'package:flutter/material.dart';
-import 'features/splash/splash_screen.dart';
-import 'app/router/app.dart';
+import 'app/router/app_router.dart';
+import 'app/router/route_names.dart';
+import 'core/theme/app_theme.dart';
 
 void main() {
-  runApp(const AppEntry());
+  runApp(const MyApp());
 }
 
-class AppEntry extends StatelessWidget {
-  const AppEntry({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Medics',
       debugShowCheckedModeBanner: false,
-      home: const SplashWrapper(),
+      theme: AppTheme.lightTheme,
+      initialRoute: RouteNames.splash,
+      onGenerateRoute: AppRouter.generateRoute,
     );
-  }
-}
-
-class SplashWrapper extends StatefulWidget {
-  const SplashWrapper({super.key});
-
-  @override
-  State<SplashWrapper> createState() => _SplashWrapperState();
-}
-
-class _SplashWrapperState extends State<SplashWrapper> {
-  @override
-  void initState() {
-    super.initState();
-
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const ClinicApp()),
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const SplashScreen();
   }
 }

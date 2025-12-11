@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'route_names.dart';
+import '../../features/splash/splash_screen.dart';
+import '../../features/onboarding/onboarding_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/messages/presentation/pages/messages_page.dart';
 import '../../features/calendar/presentation/pages/calendar_page.dart';
@@ -13,6 +15,16 @@ import '../../features/auth/passreset/pages/forgot_password_page.dart';
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case RouteNames.splash:
+        return MaterialPageRoute(
+          builder: (_) => const SplashScreen(),
+          settings: settings,
+        );
+      case RouteNames.onboarding:
+        return MaterialPageRoute(
+          builder: (_) => const OnboardingPage(),
+          settings: settings,
+        );
       case RouteNames.home:
         return MaterialPageRoute(
           builder: (_) => const HomePage(),

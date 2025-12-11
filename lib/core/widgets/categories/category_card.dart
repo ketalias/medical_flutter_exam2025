@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../theme/app_colors.dart';
 import '/../../features/doctors/domain/doctor_category.dart';
 
 class CategoryItem extends StatelessWidget {
@@ -59,15 +61,15 @@ class _HoverableIconContainerState extends State<_HoverableIconContainer> {
             ),
           ],
         ),
-        child: SvgPicture.asset(
-          widget.category.iconPath,
-          width: 48,
-          height: 48,
-          colorFilter: ColorFilter.mode(
-            Theme.of(context).primaryColor,
-            BlendMode.srcIn,
+          child: SvgPicture.asset(
+            widget.category.iconPath,
+            width: 48,
+            height: 48,
+            colorFilter: const ColorFilter.mode(
+              AppColors.primary,
+              BlendMode.srcIn,
+            ),
           ),
-        ),
       ),
     );
   }

@@ -3,7 +3,7 @@ import 'app_colors.dart';
 
 class AppTextStyles {
   static const h2 = TextStyle(
-    fontFamily: 'Montserrat',
+    fontFamily: 'Open Sans',
     fontSize: 22,
     fontWeight: FontWeight.w800,
     color: AppColors.textPrimary,
@@ -11,7 +11,7 @@ class AppTextStyles {
   );
 
   static const bodyLarge = TextStyle(
-    fontFamily: 'Montserrat',
+    fontFamily: 'Open Sans',
     fontSize: 16,
     fontWeight: FontWeight.normal,
     color: AppColors.textPrimary,
@@ -19,7 +19,7 @@ class AppTextStyles {
   );
 
   static const bodySmall = TextStyle(
-    fontFamily: 'Montserrat',
+    fontFamily: 'Open Sans',
     fontSize: 12,
     fontWeight: FontWeight.normal,
     color: AppColors.textLight,
@@ -27,7 +27,7 @@ class AppTextStyles {
   );
 
   static const button = TextStyle(
-    fontFamily: 'Montserrat',
+    fontFamily: 'Open Sans',
     fontSize: 16,
     fontWeight: FontWeight.w600,
     color: AppColors.white,

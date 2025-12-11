@@ -29,7 +29,8 @@ flutter:
     - assets/icons/
     - assets/banners/
     - assets/symptoms.json
+    
   fonts:
-    - family: Montserrat
+    - family: Open Sans
       fonts:
-        - asset: assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf
+        - asset: assets/fonts/OpenSans/OpenSans-VariableFont_wdth,wght.ttf

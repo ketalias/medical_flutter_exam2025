@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_flutter_exam2025/core/theme/app_colors.dart';
+import 'package:medical_flutter_exam2025/app/router/route_names.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -55,7 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => Dialog(
+      builder: (dialogContext) => Dialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
@@ -103,8 +104,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop(); // Go back to login or home
+                    // Close dialog and navigate to login page
+                    Navigator.of(dialogContext).pop();
+                    Navigator.pushReplacementNamed(context, RouteNames.login);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
@@ -378,7 +380,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Don't have an account? ",
+                        "Already have an account? ",
                         style: TextStyle(
                           fontFamily: 'Montserrat',
                           fontSize: 14,
@@ -387,7 +389,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          Navigator.pushReplacementNamed(context, RouteNames.login);
                         },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
@@ -395,7 +397,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
                         child: const Text(
-                          'Sin Up',
+                          'Login',
                           style: TextStyle(
                             fontFamily: 'Montserrat',
                             fontSize: 14,
